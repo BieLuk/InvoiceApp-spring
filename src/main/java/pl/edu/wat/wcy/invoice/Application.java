@@ -1,4 +1,4 @@
-package invoice;
+package pl.edu.wat.wcy.invoice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
