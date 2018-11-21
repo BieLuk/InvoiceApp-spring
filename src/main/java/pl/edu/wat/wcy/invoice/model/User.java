@@ -1,8 +1,8 @@
 package pl.edu.wat.wcy.invoice.model;
 
-import lombok.Builder;
 import lombok.Data;
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 
 
 @Data
@@ -15,29 +15,26 @@ public class User  {
     private Long id;
 
     private String name;
+
+    @Email
     private String email;
+
     private String phone;
 
-//    private String street;
-//
-//    private String postcode;
-//
-//    private String city;
-//
-//    private String nip;
-//
-//    private String regon;
-//
-//
-//
-//    @Email
-//
-//
-//    @JsonIgnore
-//    private String password;
-//
-//    @Builder.Default()
-//    private boolean active = true;
+    private String street;
+
+    private String postcode;
+
+    private String city;
+
+    private String nip;
+
+    private String regon;
+
+    private String password;
+
+    private Boolean active;
+
 
 
 }
