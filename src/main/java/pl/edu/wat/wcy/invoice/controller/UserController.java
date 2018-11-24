@@ -2,7 +2,7 @@ package pl.edu.wat.wcy.invoice.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.wat.wcy.invoice.dto.SimpleUserDTO;
+import pl.edu.wat.wcy.invoice.dto.UserSimpleDTO;
 import pl.edu.wat.wcy.invoice.dto.UserDTO;
 import pl.edu.wat.wcy.invoice.response.ObjectReference;
 import pl.edu.wat.wcy.invoice.response.SingleResponse;
@@ -22,8 +22,13 @@ public class UserController {
     }
 
     @PostMapping
-    public SingleResponse<ObjectReference> createUser(@RequestBody SimpleUserDTO simpleUserDTO){
-        return new SingleResponse<>(userService.createUser(simpleUserDTO));
+    public SingleResponse<ObjectReference> createUser(@RequestBody UserSimpleDTO userSimpleDTO){
+        return new SingleResponse<>(userService.createUser(userSimpleDTO));
+    }
+
+    @PutMapping
+    public SingleResponse<UserDTO> updateUser(@RequestBody UserDTO user) {
+        return new SingleResponse<>(userService.updateUser(user));
     }
 
 }
