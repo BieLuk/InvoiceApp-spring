@@ -25,8 +25,8 @@ public class UserService {
         return userDTO;
     }
 
-    public ObjectReference createUser(UserSimpleDTO userSimpleDTO) {
-        User user = modelMapper.map(userSimpleDTO, User.class);
+    public ObjectReference createUser(UserDTO userDTO) {
+        User user = modelMapper.map(userDTO, User.class);
         userRepository.save(user);
         return new ObjectReference(user.getId());
     }

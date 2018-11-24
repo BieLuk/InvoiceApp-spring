@@ -22,8 +22,8 @@ public class UserController {
     }
 
     @PostMapping
-    public SingleResponse<ObjectReference> createUser(@RequestBody UserSimpleDTO userSimpleDTO){
-        return new SingleResponse<>(userService.createUser(userSimpleDTO));
+    public SingleResponse<ObjectReference> createUser(@RequestBody UserDTO userDTO){
+        return new SingleResponse<>(userService.createUser(userDTO));
     }
 
     @PutMapping
