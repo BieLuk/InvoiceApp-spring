@@ -29,15 +29,15 @@ public class InvoiceController {
         return new SingleResponse<>(invoiceService.createInvoice(invoiceDTO));
     }
 
-//    @GetMapping(value = "/client/{nip}")
-//    public InvoiceData getNIP(@PathVariable("nip") String nip){
-//        try {
-//            NIP24Client nip24 = new NIP24Client("w4PuMSZH8D4i", "hMlmlqgMCB5O");
-//            return nip24.getInvoiceData(nip);
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
+    @GetMapping(value = "/client/{nip}")
+    public InvoiceData getNIP(@PathVariable("nip") String nip){
+        try {
+            NIP24Client nip24 = new NIP24Client("w4PuMSZH8D4i", "hMlmlqgMCB5O");
+            return nip24.getInvoiceData(nip);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }
