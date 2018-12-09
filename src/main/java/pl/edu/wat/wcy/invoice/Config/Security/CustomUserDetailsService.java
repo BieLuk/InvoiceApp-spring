@@ -1,5 +1,6 @@
 package pl.edu.wat.wcy.invoice.Config.Security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,10 +11,11 @@ import pl.edu.wat.wcy.invoice.model.User;
 import pl.edu.wat.wcy.invoice.repository.UserRepository;
 
 @Service
+@RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-    @Autowired
-    UserRepository userRepository;
+
+    final UserRepository userRepository;
 
     @Override
     @Transactional
