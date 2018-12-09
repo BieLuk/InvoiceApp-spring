@@ -3,7 +3,6 @@ package pl.edu.wat.wcy.invoice.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 
 @Data
 @Entity
@@ -21,7 +20,6 @@ public class Client {
     private String nip;
 
     private String phone;
-    @Email
     private String email;
     private String website;
     private String comment;

@@ -14,3 +14,6 @@ INSERT INTO public.clients(
 	('Wadowice', 'ABAB', '8854123547', '01-860', 'Puławska 51', 5),
 	('Stasi Las', 'XYZ ABC', '8774235484', '005-140', 'Główna 21', 5),
 	('Leszczynowo', 'MOLINEO', '9638527417', '04-560', 'Dobra 18', 1);
+
+INSERT INTO public.roles(name) VALUES('ROLE_USER');
+INSERT INTO public.roles(name) VALUES('ROLE_ADMIN');
