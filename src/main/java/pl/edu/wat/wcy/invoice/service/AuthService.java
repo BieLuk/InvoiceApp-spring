@@ -1,24 +1,27 @@
 package pl.edu.wat.wcy.invoice.service;
 
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import pl.edu.wat.wcy.invoice.Config.Security.JwtTokenProvider;
+import pl.edu.wat.wcy.invoice.dto.UserSimpleDTO;
 import pl.edu.wat.wcy.invoice.exception.AppException;
 import pl.edu.wat.wcy.invoice.model.Role;
 import pl.edu.wat.wcy.invoice.model.RoleName;
 import pl.edu.wat.wcy.invoice.model.User;
-import pl.edu.wat.wcy.invoice.payload.ApiResponse;
-import pl.edu.wat.wcy.invoice.payload.JwtAuthenticationResponse;
-import pl.edu.wat.wcy.invoice.payload.LoginRequest;
-import pl.edu.wat.wcy.invoice.payload.SignUpRequest;
+import pl.edu.wat.wcy.invoice.response.ApiResponse;
+import pl.edu.wat.wcy.invoice.response.JwtAuthenticationResponse;
+import pl.edu.wat.wcy.invoice.dto.UserLoginDTO;
+import pl.edu.wat.wcy.invoice.dto.UserSignUpDTO;
 import pl.edu.wat.wcy.invoice.repository.RoleRepository;
 import pl.edu.wat.wcy.invoice.repository.UserRepository;
 
@@ -34,35 +37,41 @@ public class AuthService {
     final RoleRepository roleRepository;
     final PasswordEncoder passwordEncoder;
     final JwtTokenProvider tokenProvider;
+    private ModelMapper modelMapper = new ModelMapper();
 
-    public ResponseEntity<?> authenticateUser(LoginRequest loginRequest) {
+
+    public JwtAuthenticationResponse authenticateUser(UserLoginDTO userLoginDTO) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUsernameOrEmail(),
-                        loginRequest.getPassword()
+                        userLoginDTO.getUsernameOrEmail(),
+                        userLoginDTO.getPassword()
                 )
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = tokenProvider.generateToken(authentication);
-        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+        User user = userRepository.findByUsernameOrEmail(userLoginDTO.getUsernameOrEmail(), userLoginDTO.getUsernameOrEmail())
+                .orElseThrow(() -> new UsernameNotFoundException("User does not exist"));
+        UserSimpleDTO userDTO = modelMapper.map(user, UserSimpleDTO.class);
+        return new JwtAuthenticationResponse(jwt, userDTO);
+//        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt, userDTO));
     }
 
-    public ResponseEntity<?> registerUser(SignUpRequest signUpRequest) {
-        if(userRepository.existsByUsername(signUpRequest.getUsername())) {
+    public ResponseEntity<?> registerUser(UserSignUpDTO userSignUpDTO) {
+        if(userRepository.existsByUsername(userSignUpDTO.getUsername())) {
             return new ResponseEntity<>(new ApiResponse(false, "Username is already taken!"),
                     HttpStatus.BAD_REQUEST);
         }
 
-        if(userRepository.existsByEmail(signUpRequest.getEmail())) {
+        if(userRepository.existsByEmail(userSignUpDTO.getEmail())) {
             return new ResponseEntity<>(new ApiResponse(false, "Email Address already in use!"),
                     HttpStatus.BAD_REQUEST);
         }
 
         // Creating user's account
-        User user = new User(signUpRequest.getName(), signUpRequest.getUsername(),
-                signUpRequest.getEmail(), signUpRequest.getPassword());
+        User user = new User(userSignUpDTO.getName(), userSignUpDTO.getUsername(),
+                userSignUpDTO.getEmail(), userSignUpDTO.getPassword());
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 

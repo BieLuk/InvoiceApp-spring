@@ -16,7 +16,6 @@ public class Client {
     private String street;
     private String postcode;
     private String city;
-    @Column(unique = true, nullable = false)
     private String nip;
 
     private String phone;
@@ -25,7 +24,7 @@ public class Client {
     private String comment;
 
     @ManyToOne
-    @JoinColumn(name="user_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name="user_id", referencedColumnName = "id") //, insertable = false, updatable = false
     private User user;
 
 }

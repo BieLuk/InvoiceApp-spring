@@ -1,11 +1,11 @@
-package pl.edu.wat.wcy.invoice.payload;
+package pl.edu.wat.wcy.invoice.dto;
 
 import lombok.Data;
 
 import javax.validation.constraints.*;
 
 @Data
-public class SignUpRequest {
+public class UserSignUpDTO {
     @NotBlank
     @Size(min = 4)
     private String name;

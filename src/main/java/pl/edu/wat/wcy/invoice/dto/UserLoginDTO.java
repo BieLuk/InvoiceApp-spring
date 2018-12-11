@@ -1,10 +1,10 @@
-package pl.edu.wat.wcy.invoice.payload;
+package pl.edu.wat.wcy.invoice.dto;
 
 import lombok.Data;
 import javax.validation.constraints.NotBlank;
 
 @Data
-public class LoginRequest {
+public class UserLoginDTO {
     @NotBlank
     private String usernameOrEmail;
 

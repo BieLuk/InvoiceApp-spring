@@ -1,4 +1,4 @@
-package pl.edu.wat.wcy.invoice.payload;
+package pl.edu.wat.wcy.invoice.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
