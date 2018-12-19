@@ -6,11 +6,12 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "invoice_type")
-public class InvoiceType {
+@Table(name = "payment_type")
+public class PaymentType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
 }

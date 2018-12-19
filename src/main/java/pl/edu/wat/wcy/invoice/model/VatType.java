@@ -6,8 +6,8 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "invoice_type")
-public class InvoiceType {
+@Table(name = "vat_type")
+public class VatType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

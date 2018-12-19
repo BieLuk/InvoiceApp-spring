@@ -14,17 +14,29 @@ public class Invoice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String invoiceNumber;
+
     @ManyToOne
-    @JoinColumn(name="user_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name="user_id", referencedColumnName = "id", updatable = false)
     private User user;
-
     private LocalDate createDate;
-
+    private LocalDate saleDate;
+    private LocalDate paymentDate;
     private Double netValue;
-
     private Double grossValue;
 
     @ManyToOne
-    @JoinColumn(name = "type_id", referencedColumnName = "id")
-    private InvoiceType type;
+    @JoinColumn(name = "payment_type_id", referencedColumnName = "id")
+    private PaymentType paymentType;
+
+
+    @ManyToOne
+    @JoinColumn(name = "invoice_type_id", referencedColumnName = "id")
+    private InvoiceType invoiceType;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
+    private Client client;
+
+
 }

@@ -9,6 +9,9 @@ import pl.edu.wat.wcy.invoice.model.Invoice;
 import pl.edu.wat.wcy.invoice.repository.InvoiceRepository;
 import pl.edu.wat.wcy.invoice.response.ObjectReference;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class InvoiceService {
@@ -16,12 +19,15 @@ public class InvoiceService {
     private final InvoiceRepository invoiceRepository;
     private ModelMapper modelMapper = new ModelMapper();
 
+    public List<InvoiceDTO> getInvoicesByUserId(Long userId) {
+        return invoiceRepository.findAllByUserId(userId).stream()
+                .map(invoice -> modelMapper.map(invoice, InvoiceDTO.class)).collect(Collectors.toList());
+    }
+
     public InvoiceDTO getInvoice(Long id){
         Invoice invoice = invoiceRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Invoice not exisst id = " + id));
-        InvoiceDTO invoiceDTO = modelMapper.map(invoice, InvoiceDTO.class);
-
-        return invoiceDTO;
+        return modelMapper.map(invoice, InvoiceDTO.class);
     }
 
     public ObjectReference createInvoice(InvoiceDTO invoiceDTO) {

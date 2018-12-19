@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.wat.wcy.invoice.dto.InvoiceDTO;
 import pl.edu.wat.wcy.invoice.model.Invoice;
+import pl.edu.wat.wcy.invoice.response.ListResponse;
 import pl.edu.wat.wcy.invoice.response.ObjectReference;
 import pl.edu.wat.wcy.invoice.response.SingleResponse;
 import pl.edu.wat.wcy.invoice.service.InvoiceService;
@@ -11,17 +12,18 @@ import pl.nip24.client.AllData;
 import pl.nip24.client.InvoiceData;
 import pl.nip24.client.NIP24Client;
 
+import javax.websocket.server.PathParam;
 import java.net.MalformedURLException;
 
 @RestController
-@RequestMapping(value = "/invoice")
+@RequestMapping(value = "/invoices")
 @RequiredArgsConstructor
 public class InvoiceController {
     private final InvoiceService invoiceService;
 
-    @GetMapping(value = "/{id}")
-    public SingleResponse<InvoiceDTO> getInvoice(@PathVariable("id") Long id){
-        return new SingleResponse<>(invoiceService.getInvoice(id));
+    @GetMapping(value = "/invoice")
+    public SingleResponse<InvoiceDTO> getInvoice(@PathParam("invoiceId") Long invoiceId){
+        return new SingleResponse<>(invoiceService.getInvoice(invoiceId));
     }
 
     @PostMapping
@@ -29,15 +31,10 @@ public class InvoiceController {
         return new SingleResponse<>(invoiceService.createInvoice(invoiceDTO));
     }
 
-    @GetMapping(value = "/client/{nip}")
-    public InvoiceData getNIP(@PathVariable("nip") String nip){
-        try {
-            NIP24Client nip24 = new NIP24Client("w4PuMSZH8D4i", "hMlmlqgMCB5O");
-            return nip24.getInvoiceData(nip);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        return null;
+    @GetMapping
+    public ListResponse<InvoiceDTO> getClientsByUserId(@PathParam("userId") Long userId) {
+        return new ListResponse<>(invoiceService.getInvoicesByUserId(userId));
     }
+
 
 }

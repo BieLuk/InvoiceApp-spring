@@ -36,16 +36,7 @@ public class UserService {
     public UserDTO updateUser(UserDTO user) {
         User userDs = userRepository.findById(user.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found id: " + user.getId()));
-
-        userDs.setEmail(user.getEmail());
-        userDs.setPassword(user.getPassword()); //zahashowac
-        userDs.setName(user.getName());
-        userDs.setStreet(user.getStreet());
-        userDs.setPostcode(user.getPostcode());
-        userDs.setCity(user.getCity());
-        userDs.setNip(user.getNip());
-        userDs.setRegon(user.getRegon());
-        userDs.setPhone(user.getPhone());
+        modelMapper.map(user, userDs);
 
         userRepository.save(userDs);
         return user;

@@ -7,10 +7,15 @@ import java.time.LocalDate;
 @Data
 public class InvoiceDTO {
 
-    private Long userId;
-    private LocalDate date = LocalDate.now();
+    private Long id;
+    private String invoiceNumber;
+    private UserSimpleDTO user;
+    private LocalDate createDate;
+    private LocalDate saleDate;
+    private LocalDate paymentDate;
     private Double netValue;
     private Double grossValue;
-    private Long typeId;
-
+    private PaymentTypeDTO paymentType;
+    private InvoiceTypeDTO invoiceType;
+    private ClientDTO client;
 }

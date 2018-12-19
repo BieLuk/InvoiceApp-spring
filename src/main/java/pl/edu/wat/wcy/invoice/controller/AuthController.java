@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.edu.wat.wcy.invoice.dto.UserLoginDTO;
 import pl.edu.wat.wcy.invoice.dto.UserSignUpDTO;
+import pl.edu.wat.wcy.invoice.response.ApiResponse;
 import pl.edu.wat.wcy.invoice.response.JwtAuthenticationResponse;
-import pl.edu.wat.wcy.invoice.response.SingleResponse;
 import pl.edu.wat.wcy.invoice.service.AuthService;
 
 import javax.validation.Valid;
@@ -28,7 +28,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody UserSignUpDTO userSignUpDTO) {
+    public ApiResponse registerUser(@Valid @RequestBody UserSignUpDTO userSignUpDTO) {
         return authService.registerUser(userSignUpDTO);
     }
 }

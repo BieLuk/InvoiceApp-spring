@@ -42,16 +42,7 @@ public class ClientService {
     public ClientDTO updateClient(ClientDTO client) {
         Client clientDs = clientRepository.findById(client.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Client not found id: " + client.getId()));
-
-        clientDs.setEmail(client.getEmail());
-        clientDs.setName(client.getName());
-        clientDs.setStreet(client.getStreet());
-        clientDs.setPostcode(client.getPostcode());
-        clientDs.setCity(client.getCity());
-        clientDs.setNip(client.getNip());
-        clientDs.setPhone(client.getPhone());
-        clientDs.setWebsite(client.getWebsite());
-        clientDs.setComment(client.getComment());
+        modelMapper.map(client, clientDs);
 
         clientRepository.save(clientDs);
         return client;

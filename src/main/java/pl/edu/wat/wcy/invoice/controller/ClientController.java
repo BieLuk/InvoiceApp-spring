@@ -29,7 +29,7 @@ public class ClientController {
         return new SingleResponse<>(clientService.createClient(clientDTO));
     }
 
-    @PutMapping
+    @PutMapping(value = "/client")
     public SingleResponse<ClientDTO> updateClient(@RequestBody ClientDTO client) {
         return new SingleResponse<>(clientService.updateClient(client));
     }

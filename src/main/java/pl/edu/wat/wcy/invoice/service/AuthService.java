@@ -58,15 +58,13 @@ public class AuthService {
 //        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt, userDTO));
     }
 
-    public ResponseEntity<?> registerUser(UserSignUpDTO userSignUpDTO) {
+    public ApiResponse registerUser(UserSignUpDTO userSignUpDTO) {
         if(userRepository.existsByUsername(userSignUpDTO.getUsername())) {
-            return new ResponseEntity<>(new ApiResponse(false, "Username is already taken!"),
-                    HttpStatus.BAD_REQUEST);
+            return new ApiResponse(false, "Podana nazwa użytkownika jest zajęta");
         }
 
         if(userRepository.existsByEmail(userSignUpDTO.getEmail())) {
-            return new ResponseEntity<>(new ApiResponse(false, "Email Address already in use!"),
-                    HttpStatus.BAD_REQUEST);
+            return new ApiResponse(false, "Podany adres email jest zajęty");
         }
 
         // Creating user's account
@@ -81,12 +79,7 @@ public class AuthService {
         user.setRoles(Collections.singleton(userRole));
 
         User result = userRepository.save(user);
-
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentContextPath().path("/api/users/{username}")
-                .buildAndExpand(result.getUsername()).toUri();
-
-        return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
+        return new ApiResponse(true, "Użytkownik zarejestrowany pomyślnie");
     }
 
 
