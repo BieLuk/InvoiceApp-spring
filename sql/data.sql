@@ -1,11 +1,3 @@
-INSERT INTO public.clients(
-	city, name, nip, postcode, street, user_id)
-	VALUES
-	('Wadowice', 'ABAB', '8854123547', '01-860', 'Puławska 51', 5),
-	('Stasi Las', 'XYZ ABC', '8774235484', '005-140', 'Główna 21', 1),
-	('Leszczynowo', 'MOLINEO', '9638527417', '04-560', 'Dobra 18', 1);
-
-
 -- Necessary
 
 INSERT INTO public.roles(name) VALUES('ROLE_USER');
@@ -28,3 +20,15 @@ INSERT INTO public.invoice_type(name) VALUES('Faktura Marża');
 INSERT INTO public.invoice_type(name) VALUES('Faktura Zaliczkowa');
 INSERT INTO public.invoice_type(name) VALUES('Faktura Korygująca');
 INSERT INTO public.invoice_type(name) VALUES('Faktura MOSS');
+
+
+
+insert into users (name, username, email, password, active)
+values ('Łukasz Bieńkowski', 'lukasz', 'lukcxz1@wp.pl', '$2a$10$txxWrBvyPV1fK6eaoDJwsesL/eqcNtvy6kY25nz8iiPiqCzkekjXe', true);
+
+INSERT INTO public.clients(
+	city, name, nip, postcode, street, user_id)
+	VALUES
+	('Wadowice', 'ABAB', '8854123547', '01-860', 'Puławska 51', 5),
+	('Stasi Las', 'XYZ ABC', '8774235484', '005-140', 'Główna 21', 1),
+	('Leszczynowo', 'MOLINEO', '9638527417', '04-560', 'Dobra 18', 1);

@@ -1,6 +1,5 @@
 package pl.edu.wat.wcy.invoice.model;
 
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NaturalId;
 
@@ -13,7 +12,6 @@ import java.util.List;
 import java.util.Set;
 
 
-@Data
 @NoArgsConstructor
 @Entity
 @Table( name = "users", uniqueConstraints = {
@@ -26,26 +24,10 @@ import java.util.Set;
 })
 public class User {
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-
-    @NotBlank
-    @Size(max = 40)
     private String name;
-
-    @NotBlank
-    @Size(max = 15)
     private String username;
-
-    @NaturalId
-    @NotBlank
-    @Size(max = 40)
-    @Email
     private String email;
-
-    @NotBlank
-    @Size(max = 100)
     private String password;
 
     private String phone;
@@ -53,16 +35,12 @@ public class User {
     private String postcode;
     private String city;
 
-    @Column(unique = true)
     private String nip;
     private String regon;
     private Boolean active;
 
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+
     private Set<Role> roles = new HashSet<>();
 
     public User(String name, String username, String email, String password) {
@@ -70,5 +48,126 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @NotBlank
+    @Size(max = 40)
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @NotBlank
+    @Size(max = 15)
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @NaturalId
+    @NotBlank
+    @Size(max = 40)
+    @Email
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @NotBlank
+    @Size(max = 100)
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getPostcode() {
+        return postcode;
+    }
+
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    @Column(unique = true)
+    public String getNip() {
+        return nip;
+    }
+
+    public void setNip(String nip) {
+        this.nip = nip;
+    }
+
+    public String getRegon() {
+        return regon;
+    }
+
+    public void setRegon(String regon) {
+        this.regon = regon;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }
