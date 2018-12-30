@@ -8,6 +8,9 @@ import pl.edu.wat.wcy.invoice.dto.PaymentTypeDTO;
 import pl.edu.wat.wcy.invoice.model.PaymentType;
 import pl.edu.wat.wcy.invoice.repository.PaymentTypeRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class PaymentTypeService {
@@ -20,4 +23,10 @@ public class PaymentTypeService {
                 .orElseThrow( () -> new ResourceNotFoundException("PaymentType not exist id: " + paymentTypeId));
         return modelMapper.map(paymentType, PaymentTypeDTO.class);
     }
+
+    public List<PaymentTypeDTO> getAllPaymentTypes() {
+        return paymentTypeRepository.findAll().stream()
+                .map(paymentType -> modelMapper.map(paymentType, PaymentTypeDTO.class)).collect(Collectors.toList());
+    }
+
 }

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.edu.wat.wcy.invoice.dto.PaymentTypeDTO;
 import pl.edu.wat.wcy.invoice.dto.VatTypeDTO;
+import pl.edu.wat.wcy.invoice.response.ListResponse;
 import pl.edu.wat.wcy.invoice.response.SingleResponse;
 import pl.edu.wat.wcy.invoice.service.PaymentTypeService;
 import pl.edu.wat.wcy.invoice.service.VatTypeService;
@@ -19,8 +20,13 @@ public class VatTypeController {
     private final VatTypeService vatTypeService;
 
     @GetMapping
-    public SingleResponse<VatTypeDTO> getClient(@PathParam("vatTypeId") Long vatTypeId) {
+    public SingleResponse<VatTypeDTO> getVatType(@PathParam("vatTypeId") Long vatTypeId) {
         return new SingleResponse<>(vatTypeService.getVatType(vatTypeId));
+    }
+
+    @GetMapping(value = "/all")
+    public ListResponse<VatTypeDTO> getAllInvoiceTypes() {
+        return new ListResponse<>(vatTypeService.getAllPaymentTypes());
     }
 
 }
