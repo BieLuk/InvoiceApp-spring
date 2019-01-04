@@ -8,6 +8,7 @@ public class VatType {
 
     private Long id;
     private String name;
+    private Double value;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,5 +26,13 @@ public class VatType {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Double getValue() {
+        return value;
+    }
+
+    public void setValue(Double value) {
+        this.value = value;
     }
 }

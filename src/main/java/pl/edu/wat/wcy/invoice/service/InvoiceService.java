@@ -26,7 +26,7 @@ public class InvoiceService {
 
     public InvoiceDTO getInvoice(Long id){
         Invoice invoice = invoiceRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Invoice not exisst id = " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Invoice not exist id = " + id));
         return modelMapper.map(invoice, InvoiceDTO.class);
     }
 

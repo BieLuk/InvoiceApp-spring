@@ -28,8 +28,8 @@ public class InvoicePosition {
         this.id = id;
     }
 
-    @ManyToOne
-    @JoinColumn(name="invoice_id", referencedColumnName = "id", updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="invoice_id", referencedColumnName = "id")
     public Invoice getInvoice() {
         return invoice;
     }

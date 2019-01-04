@@ -7,4 +7,5 @@ public class VatTypeDTO {
 
     private Long id;
     private String name;
+    private Double value;
 }

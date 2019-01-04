@@ -6,7 +6,6 @@ import lombok.Data;
 public class InvoicePositionDTO {
 
     private Long id;
-    private InvoiceDTO invoice;
     private String name;
     private String unit;
     private Double quantity;

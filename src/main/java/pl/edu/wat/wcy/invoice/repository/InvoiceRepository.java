@@ -7,5 +7,5 @@ import pl.edu.wat.wcy.invoice.model.Invoice;
 import java.util.List;
 
 public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
-    List<Client> findAllByUserId(Long userId);
+    List<Invoice> findAllByUserId(Long userId);
 }

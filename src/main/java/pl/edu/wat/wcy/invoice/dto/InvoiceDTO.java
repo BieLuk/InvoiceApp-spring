@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.Data;
+import pl.edu.wat.wcy.invoice.model.InvoicePosition;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Data
 public class InvoiceDTO {
@@ -30,4 +32,6 @@ public class InvoiceDTO {
     private PaymentTypeDTO paymentType;
     private InvoiceTypeDTO invoiceType;
     private ClientDTO client;
+    private Set<InvoicePositionDTO> invoicePositions;
+
 }

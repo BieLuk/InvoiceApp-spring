@@ -1,9 +1,8 @@
 package pl.edu.wat.wcy.invoice.model;
 
-import lombok.Data;
-
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "invoices")
@@ -20,6 +19,7 @@ public class Invoice {
     private PaymentType paymentType;
     private InvoiceType invoiceType;
     private Client client;
+    private Set<InvoicePosition> invoicePositions;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -118,5 +118,14 @@ public class Invoice {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    @OneToMany(mappedBy = "invoice")
+    public Set<InvoicePosition> getInvoicePositions() {
+        return invoicePositions;
+    }
+
+    public void setInvoicePositions(Set<InvoicePosition> invoicePositions) {
+        this.invoicePositions = invoicePositions;
     }
 }
