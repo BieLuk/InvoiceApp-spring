@@ -32,7 +32,7 @@ public class InvoiceController {
     }
 
     @GetMapping
-    public ListResponse<InvoiceDTO> getClientsByUserId(@PathParam("userId") Long userId) {
+    public ListResponse<InvoiceDTO> getInvoicesByUserId(@PathParam("userId") Long userId) {
         return new ListResponse<>(invoiceService.getInvoicesByUserId(userId));
     }
 

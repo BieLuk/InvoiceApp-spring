@@ -120,7 +120,7 @@ public class Invoice {
         this.client = client;
     }
 
-    @OneToMany(mappedBy = "invoice")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoice")
     public Set<InvoicePosition> getInvoicePositions() {
         return invoicePositions;
     }
