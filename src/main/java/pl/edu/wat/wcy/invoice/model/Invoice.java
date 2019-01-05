@@ -1,11 +1,12 @@
 package pl.edu.wat.wcy.invoice.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
-@Table(name = "invoices")
+@Table(name = "invoice")
 public class Invoice {
 
     private Long id;
@@ -14,15 +15,16 @@ public class Invoice {
     private LocalDate createDate;
     private LocalDate saleDate;
     private LocalDate paymentDate;
-    private Double netValue;
-    private Double grossValue;
+    private Double netAmount;
+    private Double grossAmount;
     private PaymentType paymentType;
-    private InvoiceType invoiceType;
+    private InvoiceType invoiceVersion;
     private Client client;
     private Set<InvoicePosition> invoicePositions;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     public Long getId() {
         return id;
     }
@@ -31,6 +33,7 @@ public class Invoice {
         this.id = id;
     }
 
+    @Column(name = "invoice_number")
     public String getInvoiceNumber() {
         return invoiceNumber;
     }
@@ -49,6 +52,7 @@ public class Invoice {
         this.user = user;
     }
 
+    @Column(name = "create_date")
     public LocalDate getCreateDate() {
         return createDate;
     }
@@ -57,6 +61,7 @@ public class Invoice {
         this.createDate = createDate;
     }
 
+    @Column(name = "sale_date")
     public LocalDate getSaleDate() {
         return saleDate;
     }
@@ -65,7 +70,7 @@ public class Invoice {
         this.saleDate = saleDate;
     }
 
-
+    @Column(name = "payment_date")
     public LocalDate getPaymentDate() {
         return paymentDate;
     }
@@ -74,20 +79,22 @@ public class Invoice {
         this.paymentDate = paymentDate;
     }
 
-    public Double getNetValue() {
-        return netValue;
+    @Column(name = "net_value")
+    public Double getNetAmount() {
+        return netAmount;
     }
 
-    public void setNetValue(Double netValue) {
-        this.netValue = netValue;
+    public void setNetAmount(Double netAmount) {
+        this.netAmount = netAmount;
     }
 
-    public Double getGrossValue() {
-        return grossValue;
+    @Column(name = "gross_value")
+    public Double getGrossAmount() {
+        return grossAmount;
     }
 
-    public void setGrossValue(Double grossValue) {
-        this.grossValue = grossValue;
+    public void setGrossAmount(Double grossAmount) {
+        this.grossAmount = grossAmount;
     }
 
     @ManyToOne
@@ -102,12 +109,12 @@ public class Invoice {
 
     @ManyToOne
     @JoinColumn(name = "invoice_type_id", referencedColumnName = "id")
-    public InvoiceType getInvoiceType() {
-        return invoiceType;
+    public InvoiceType getInvoiceVersion() {
+        return invoiceVersion;
     }
 
-    public void setInvoiceType(InvoiceType invoiceType) {
-        this.invoiceType = invoiceType;
+    public void setInvoiceVersion(InvoiceType invoiceVersion) {
+        this.invoiceVersion = invoiceVersion;
     }
 
     @ManyToOne
@@ -120,7 +127,10 @@ public class Invoice {
         this.client = client;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoice")
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            mappedBy = "invoice"
+    )
     public Set<InvoicePosition> getInvoicePositions() {
         return invoicePositions;
     }

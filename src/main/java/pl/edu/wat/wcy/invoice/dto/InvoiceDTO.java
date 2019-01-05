@@ -26,10 +26,10 @@ public class InvoiceDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", timezone = "Europe/Warsaw")
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate paymentDate;
-    private Double netValue;
-    private Double grossValue;
+    private Double netAmount;
+    private Double grossAmount;
     private PaymentTypeDTO paymentType;
-    private InvoiceTypeDTO invoiceType;
+    private InvoiceTypeDTO invoiceVersion;
     private ClientDTO client;
     private Set<InvoicePositionDTO> invoicePositions;
 
