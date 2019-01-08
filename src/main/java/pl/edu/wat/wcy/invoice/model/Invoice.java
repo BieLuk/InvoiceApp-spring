@@ -17,10 +17,12 @@ public class Invoice {
     private LocalDate paymentDate;
     private Double netAmount;
     private Double grossAmount;
+    private Double vatAmount;
     private PaymentType paymentType;
     private InvoiceType invoiceVersion;
     private Client client;
     private Set<InvoicePosition> invoicePositions;
+    private Set<InvoiceVat> invoiceVats;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -97,6 +99,15 @@ public class Invoice {
         this.grossAmount = grossAmount;
     }
 
+    @Column(name = "vat_value")
+    public Double getVatAmount() {
+        return vatAmount;
+    }
+
+    public void setVatAmount(Double vatAmount) {
+        this.vatAmount = vatAmount;
+    }
+
     @ManyToOne
     @JoinColumn(name = "payment_type_id", referencedColumnName = "id")
     public PaymentType getPaymentType() {
@@ -137,5 +148,17 @@ public class Invoice {
 
     public void setInvoicePositions(Set<InvoicePosition> invoicePositions) {
         this.invoicePositions = invoicePositions;
+    }
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            mappedBy = "invoice"
+    )
+    public Set<InvoiceVat> getInvoiceVats() {
+        return invoiceVats;
+    }
+
+    public void setInvoiceVats(Set<InvoiceVat> invoiceVats) {
+        this.invoiceVats = invoiceVats;
     }
 }

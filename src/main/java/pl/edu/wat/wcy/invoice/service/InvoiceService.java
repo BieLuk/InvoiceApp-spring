@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import pl.edu.wat.wcy.invoice.dto.InvoiceDTO;
 import pl.edu.wat.wcy.invoice.model.Invoice;
 import pl.edu.wat.wcy.invoice.model.InvoicePosition;
+import pl.edu.wat.wcy.invoice.model.InvoiceVat;
 import pl.edu.wat.wcy.invoice.repository.InvoiceRepository;
 import pl.edu.wat.wcy.invoice.response.ObjectReference;
 
@@ -35,8 +36,13 @@ public class InvoiceService {
     public ObjectReference createInvoice(InvoiceDTO invoiceDTO) {
 
         Invoice invoice = modelMapper.map(invoiceDTO, Invoice.class);
+
         Set<InvoicePosition> positions = invoice.getInvoicePositions();
         positions.forEach(position -> position.setInvoice(invoice));
+
+        Set<InvoiceVat> vats = invoice.getInvoiceVats();
+        vats.forEach(vat -> vat.setInvoice(invoice));
+
         invoiceRepository.save(invoice);
         return new ObjectReference(invoice.getId());
     }

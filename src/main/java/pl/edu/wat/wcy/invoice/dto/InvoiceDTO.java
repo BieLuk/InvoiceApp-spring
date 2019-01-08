@@ -28,9 +28,12 @@ public class InvoiceDTO {
     private LocalDate paymentDate;
     private Double netAmount;
     private Double grossAmount;
+    private Double vatAmount;
     private PaymentTypeDTO paymentType;
     private InvoiceTypeDTO invoiceVersion;
     private ClientDTO client;
     private Set<InvoicePositionDTO> invoicePositions;
+    private Set<InvoiceVatDTO> invoiceVats;
+
 
 }
