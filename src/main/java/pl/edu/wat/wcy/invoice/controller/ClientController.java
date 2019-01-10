@@ -39,6 +39,12 @@ public class ClientController {
         return new ListResponse<>(clientService.getClientsByUserId(userId));
     }
 
+    @DeleteMapping(value = "/delete")
+    public SingleResponse<Boolean> deleteClient(@PathParam("clientId") Long clientId) {
+        return new SingleResponse<>(clientService.deleteClient(clientId));
+    }
+
+
     @GetMapping(value = "/nip")
     public SingleResponse<InvoiceData> getClientFromApiByNip(@PathParam("nip") String nip) {
         return new SingleResponse<>(clientService.getClientFromApiByNip(nip));

@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.edu.wat.wcy.invoice.dto.InvoiceDTO;
+import pl.edu.wat.wcy.invoice.model.Client;
 import pl.edu.wat.wcy.invoice.model.Invoice;
 import pl.edu.wat.wcy.invoice.model.InvoicePosition;
 import pl.edu.wat.wcy.invoice.model.InvoiceVat;
@@ -31,12 +32,12 @@ public class InvoiceService {
     private ModelMapper modelMapper = new ModelMapper();
 
     public List<InvoiceDTO> getInvoicesByUserId(Long userId) {
-        return invoiceRepository.findAllByUserId(userId).stream()
+        return invoiceRepository.findAllByUserIdAndActive(userId, true).stream()
                 .map(invoice -> modelMapper.map(invoice, InvoiceDTO.class)).collect(Collectors.toList());
     }
 
     public InvoiceDTO getInvoice(Long invoiceId){
-        Invoice invoice = invoiceRepository.findById(invoiceId)
+        Invoice invoice = invoiceRepository.findByIdAndActive(invoiceId, true)
                 .orElseThrow(() -> new ResourceNotFoundException("Invoice not exist id = " + invoiceId));
 
         return modelMapper.map(invoice, InvoiceDTO.class);
@@ -45,6 +46,7 @@ public class InvoiceService {
     public ObjectReference createInvoice(InvoiceDTO invoiceDTO) {
 
         Invoice invoice = modelMapper.map(invoiceDTO, Invoice.class);
+        invoice.setActive(true);
 
         Set<InvoicePosition> positions = invoice.getInvoicePositions();
         positions.forEach(position -> position.setInvoice(invoice));
@@ -54,6 +56,14 @@ public class InvoiceService {
 
         invoiceRepository.save(invoice);
         return new ObjectReference(invoice.getId());
+    }
+
+    public boolean deleteInvoice(Long invoiceId) {
+        Invoice invoice = invoiceRepository.findById(invoiceId)
+                .orElseThrow(() -> new ResourceNotFoundException("Invoice not exist id = " + invoiceId));
+        invoice.setActive(false);
+        invoiceRepository.save(invoice);
+        return true;
     }
 
     public ResponseEntity<InputStreamSource> generateInvoicePdf(Long invoiceId) throws IOException {

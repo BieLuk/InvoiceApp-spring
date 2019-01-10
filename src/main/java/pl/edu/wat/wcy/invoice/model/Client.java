@@ -1,7 +1,5 @@
 package pl.edu.wat.wcy.invoice.model;
 
-import lombok.Data;
-
 import javax.persistence.*;
 
 @Entity
@@ -22,6 +20,8 @@ public class Client {
     private String comment;
 
     private User user;
+
+    private Boolean active;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -106,12 +106,20 @@ public class Client {
     }
 
     @ManyToOne
-    @JoinColumn(name="user_id", referencedColumnName = "id") //, insertable = false, updatable = false
+    @JoinColumn(name="user_id", referencedColumnName = "id")
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

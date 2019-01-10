@@ -1,7 +1,6 @@
 package pl.edu.wat.wcy.invoice.model;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -23,6 +22,7 @@ public class Invoice {
     private Client client;
     private Set<InvoicePosition> invoicePositions;
     private Set<InvoiceVat> invoiceVats;
+    private Boolean active;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -160,5 +160,13 @@ public class Invoice {
 
     public void setInvoiceVats(Set<InvoiceVat> invoiceVats) {
         this.invoiceVats = invoiceVats;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

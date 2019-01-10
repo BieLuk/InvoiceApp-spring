@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import pl.edu.wat.wcy.invoice.dto.ClientDTO;
 import pl.edu.wat.wcy.invoice.model.Client;
 import pl.edu.wat.wcy.invoice.repository.ClientRepository;
+import pl.edu.wat.wcy.invoice.repository.InvoiceRepository;
 import pl.edu.wat.wcy.invoice.response.ObjectReference;
 import pl.nip24.client.InvoiceData;
 import pl.nip24.client.NIP24Client;
@@ -20,21 +21,23 @@ import java.util.stream.Collectors;
 public class ClientService {
 
     private final ClientRepository clientRepository;
+    private final InvoiceService invoiceService;
     private ModelMapper modelMapper = new ModelMapper();
 
     public List<ClientDTO> getClientsByUserId(Long userId) {
-        return clientRepository.findAllByUserId(userId).stream()
+        return clientRepository.findAllByUserIdAndActive(userId, true).stream()
                 .map(client -> modelMapper.map(client, ClientDTO.class)).collect(Collectors.toList());
     }
 
     public ClientDTO getClient(Long clientId) {
-        Client client = clientRepository.findById(clientId)
-                .orElseThrow( () -> new ResourceNotFoundException("Client not exist id: " + clientId));
+        Client client = clientRepository.findByIdAndActive(clientId, true)
+                .orElseThrow( () -> new ResourceNotFoundException("Client not found id: " + clientId));
         return modelMapper.map(client, ClientDTO.class);
     }
 
     public ObjectReference createClient(ClientDTO clientDTO) {
         Client client = modelMapper.map(clientDTO, Client.class);
+        client.setActive(true);
         clientRepository.save(client);
         return new ObjectReference(client.getId());
     }
@@ -48,6 +51,14 @@ public class ClientService {
         return client;
     }
 
+    public boolean deleteClient(Long clientId) {
+        Client client = clientRepository.findById(clientId)
+                .orElseThrow( () -> new ResourceNotFoundException("Client not found id: " + clientId));
+        client.setActive(false);
+        clientRepository.save(client);
+        return true;
+    }
+
     public InvoiceData getClientFromApiByNip(String nip) {
         try {
             NIP24Client nip24 = new NIP24Client("w4PuMSZH8D4i", "hMlmlqgMCB5O");
@@ -57,5 +68,7 @@ public class ClientService {
         }
         return null;
     }
+
+
 
 }

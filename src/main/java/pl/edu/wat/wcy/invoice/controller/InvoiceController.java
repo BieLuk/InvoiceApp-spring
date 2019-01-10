@@ -44,6 +44,11 @@ public class InvoiceController {
         return new ListResponse<>(invoiceService.getInvoicesByUserId(userId));
     }
 
+    @DeleteMapping(value = "/delete")
+    public SingleResponse<Boolean> deleteInvoice(@PathParam("invoiceId") Long invoiceId) {
+        return new SingleResponse<>(invoiceService.deleteInvoice(invoiceId));
+    }
+
     @GetMapping(value = "/pdf",  produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<InputStreamSource> generateInvoicePdf(@PathParam("invoiceId") Long invoiceId) throws IOException {
         return invoiceService.generateInvoicePdf(invoiceId);
