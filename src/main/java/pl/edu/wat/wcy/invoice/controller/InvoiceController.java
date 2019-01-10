@@ -1,6 +1,11 @@
 package pl.edu.wat.wcy.invoice.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.InputStreamSource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.wat.wcy.invoice.dto.InvoiceDTO;
 import pl.edu.wat.wcy.invoice.model.Invoice;
@@ -8,11 +13,14 @@ import pl.edu.wat.wcy.invoice.response.ListResponse;
 import pl.edu.wat.wcy.invoice.response.ObjectReference;
 import pl.edu.wat.wcy.invoice.response.SingleResponse;
 import pl.edu.wat.wcy.invoice.service.InvoiceService;
+import pl.edu.wat.wcy.invoice.utils.PdfGenerator;
 import pl.nip24.client.AllData;
 import pl.nip24.client.InvoiceData;
 import pl.nip24.client.NIP24Client;
 
 import javax.websocket.server.PathParam;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.net.MalformedURLException;
 
 @RestController
@@ -34,6 +42,11 @@ public class InvoiceController {
     @GetMapping
     public ListResponse<InvoiceDTO> getInvoicesByUserId(@PathParam("userId") Long userId) {
         return new ListResponse<>(invoiceService.getInvoicesByUserId(userId));
+    }
+
+    @GetMapping(value = "/pdf",  produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<InputStreamSource> generateInvoicePdf(@PathParam("invoiceId") Long invoiceId) throws IOException {
+        return invoiceService.generateInvoicePdf(invoiceId);
     }
 
 

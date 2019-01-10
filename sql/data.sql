@@ -4,11 +4,8 @@ INSERT INTO public.roles(name) VALUES('ROLE_USER');
 INSERT INTO public.roles(name) VALUES('ROLE_ADMIN');
 
 INSERT INTO public.vat_type(name, value) VALUES('23%', 0.23);
-INSERT INTO public.vat_type(name, value) VALUES('22%', 0.22);
 INSERT INTO public.vat_type(name, value) VALUES('8%', 0.08);
-INSERT INTO public.vat_type(name, value) VALUES('7%', 0.07);
 INSERT INTO public.vat_type(name, value) VALUES('5%', 0.05);
-INSERT INTO public.vat_type(name, value) VALUES('3%', 0.03);
 INSERT INTO public.vat_type(name, value) VALUES('0%', 0);
 INSERT INTO public.vat_type(name, value) VALUES('zw.', 0);
 INSERT INTO public.vat_type(name, value) VALUES('np.', 0);
