@@ -44,6 +44,11 @@ public class InvoiceController {
         return new ListResponse<>(invoiceService.getInvoicesByUserId(userId));
     }
 
+    @GetMapping(value = "/recent")
+    public ListResponse<InvoiceDTO> getFirstInvoices5ByUserId(@PathParam("userId") Long userId) {
+        return new ListResponse<>(invoiceService.getFirstInvoices5ByUserId(userId));
+    }
+
     @DeleteMapping(value = "/delete")
     public SingleResponse<Boolean> deleteInvoice(@PathParam("invoiceId") Long invoiceId) {
         return new SingleResponse<>(invoiceService.deleteInvoice(invoiceId));

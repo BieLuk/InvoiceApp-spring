@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
     List<Invoice> findAllByUserIdAndActive(Long userId, boolean active);
     Optional<Invoice> findByIdAndActive(Long userId, boolean active);
+
+    List<Invoice> findFirst5ByUserIdAndActiveOrderByCreateDateDesc(Long userId, boolean active);
 }

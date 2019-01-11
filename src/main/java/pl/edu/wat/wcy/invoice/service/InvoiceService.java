@@ -36,6 +36,11 @@ public class InvoiceService {
                 .map(invoice -> modelMapper.map(invoice, InvoiceDTO.class)).collect(Collectors.toList());
     }
 
+    public List<InvoiceDTO> getFirstInvoices5ByUserId(Long userId) {
+        return invoiceRepository.findFirst5ByUserIdAndActiveOrderByCreateDateDesc(userId, true).stream()
+                .map(invoice -> modelMapper.map(invoice, InvoiceDTO.class)).collect(Collectors.toList());
+    }
+
     public InvoiceDTO getInvoice(Long invoiceId){
         Invoice invoice = invoiceRepository.findByIdAndActive(invoiceId, true)
                 .orElseThrow(() -> new ResourceNotFoundException("Invoice not exist id = " + invoiceId));
