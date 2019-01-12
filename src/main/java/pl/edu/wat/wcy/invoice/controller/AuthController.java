@@ -23,12 +23,12 @@ public class AuthController {
     final AuthService authService;
 
     @PostMapping("/signin")
-    public JwtAuthenticationResponse authenticateUser(@Valid @RequestBody UserLoginDTO userLoginDTO) {
+    public JwtAuthenticationResponse authenticateUser(@RequestBody UserLoginDTO userLoginDTO) {
         return authService.authenticateUser(userLoginDTO);
     }
 
     @PostMapping("/signup")
-    public ApiResponse registerUser(@Valid @RequestBody UserSignUpDTO userSignUpDTO) {
+    public ApiResponse registerUser(@RequestBody UserSignUpDTO userSignUpDTO) {
         return authService.registerUser(userSignUpDTO);
     }
 }

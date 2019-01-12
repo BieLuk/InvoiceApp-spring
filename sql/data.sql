@@ -36,9 +36,15 @@ INSERT INTO public.payment_type(name) VALUES('Sprzedaż ratalna');
 insert into users (name, username, email, password, active)
 values ('Łukasz Bieńkowski', 'lukasz', 'lukcxz1@wp.pl', '$2a$10$txxWrBvyPV1fK6eaoDJwsesL/eqcNtvy6kY25nz8iiPiqCzkekjXe', true);
 
+insert into users (name, username, email, password, active)
+values ('Admin Administratorowicz', 'admin', 'admin@wp.pl', '$2a$10$txxWrBvyPV1fK6eaoDJwsesL/eqcNtvy6kY25nz8iiPiqCzkekjXe', true);
+
+insert into user_roles (user_id, role_id)
+values (1, 1), (2, 2);
+
 INSERT INTO public.clients(
     city, name, nip, postcode, street, user_id, active)
 VALUES
        ('Wadowice', 'ABAB', '8854123547', '01-860', 'Puławska 51', 1, true),
        ('Stasi Las', 'XYZ ABC', '8774235484', '005-140', 'Główna 21', 1, true),
-       ('Leszczynowo', 'MOLINEO', '9638527417', '04-560', 'Dobra 18', 1), true;
+       ('Leszczynowo', 'MOLINEO', '9638527417', '04-560', 'Dobra 18', 1, true);

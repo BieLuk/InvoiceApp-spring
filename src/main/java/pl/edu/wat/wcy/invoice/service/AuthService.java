@@ -25,6 +25,7 @@ import pl.edu.wat.wcy.invoice.dto.UserSignUpDTO;
 import pl.edu.wat.wcy.invoice.repository.RoleRepository;
 import pl.edu.wat.wcy.invoice.repository.UserRepository;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.Collections;
 
@@ -40,7 +41,7 @@ public class AuthService {
     private ModelMapper modelMapper = new ModelMapper();
 
 
-    public JwtAuthenticationResponse authenticateUser(UserLoginDTO userLoginDTO) {
+    public JwtAuthenticationResponse authenticateUser(@Valid UserLoginDTO userLoginDTO) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -55,10 +56,9 @@ public class AuthService {
                 .orElseThrow(() -> new UsernameNotFoundException("User does not exist"));
         UserSimpleDTO userDTO = modelMapper.map(user, UserSimpleDTO.class);
         return new JwtAuthenticationResponse(jwt, userDTO);
-//        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt, userDTO));
     }
 
-    public ApiResponse registerUser(UserSignUpDTO userSignUpDTO) {
+    public ApiResponse registerUser(@Valid UserSignUpDTO userSignUpDTO) {
         if(userRepository.existsByUsername(userSignUpDTO.getUsername())) {
             return new ApiResponse(false, "Podana nazwa użytkownika jest zajęta");
         }
@@ -67,20 +67,21 @@ public class AuthService {
             return new ApiResponse(false, "Podany adres email jest zajęty");
         }
 
-        // Creating user's account
         User user = new User(userSignUpDTO.getName(), userSignUpDTO.getUsername(),
                 userSignUpDTO.getEmail(), userSignUpDTO.getPassword());
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setActive(true);
 
         Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
                 .orElseThrow(() -> new AppException("User Role not set."));
 
         user.setRoles(Collections.singleton(userRole));
 
-        User result = userRepository.save(user);
+        userRepository.save(user);
         return new ApiResponse(true, "Użytkownik zarejestrowany pomyślnie");
     }
+
 
 
 

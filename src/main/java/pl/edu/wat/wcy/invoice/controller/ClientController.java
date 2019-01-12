@@ -44,7 +44,6 @@ public class ClientController {
         return new SingleResponse<>(clientService.deleteClient(clientId));
     }
 
-
     @GetMapping(value = "/nip")
     public SingleResponse<InvoiceData> getClientFromApiByNip(@PathParam("nip") String nip) {
         return new SingleResponse<>(clientService.getClientFromApiByNip(nip));

@@ -39,6 +39,12 @@ public class InvoiceController {
         return new SingleResponse<>(invoiceService.createInvoice(invoiceDTO));
     }
 
+    @GetMapping(value = "/all")
+    public ListResponse<InvoiceDTO> getAll() {
+        return new ListResponse<>(invoiceService.getAllInvoices());
+    }
+
+
     @GetMapping
     public ListResponse<InvoiceDTO> getInvoicesByUserId(@PathParam("userId") Long userId) {
         return new ListResponse<>(invoiceService.getInvoicesByUserId(userId));
