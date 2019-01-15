@@ -19,6 +19,7 @@ public class PaymentType {
         this.id = id;
     }
 
+    @Column(name = "name", nullable = false)
     public String getName() {
         return name;
     }

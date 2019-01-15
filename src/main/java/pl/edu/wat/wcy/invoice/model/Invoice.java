@@ -5,7 +5,11 @@ import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
-@Table(name = "invoice")
+@Table(name = "invoice", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {
+                "invoice_number", "user_id"
+        })
+})
 public class Invoice {
 
     private Long id;
@@ -35,7 +39,7 @@ public class Invoice {
         this.id = id;
     }
 
-    @Column(name = "invoice_number")
+    @Column(name = "invoice_number", nullable = false)
     public String getInvoiceNumber() {
         return invoiceNumber;
     }
@@ -45,7 +49,7 @@ public class Invoice {
     }
 
     @ManyToOne
-    @JoinColumn(name="user_id", referencedColumnName = "id", updatable = false)
+    @JoinColumn(name="user_id", referencedColumnName = "id", updatable = false, nullable = false)
     public User getUser() {
         return user;
     }
@@ -54,7 +58,7 @@ public class Invoice {
         this.user = user;
     }
 
-    @Column(name = "create_date")
+    @Column(name = "create_date", nullable = false)
     public LocalDate getCreateDate() {
         return createDate;
     }
@@ -63,7 +67,7 @@ public class Invoice {
         this.createDate = createDate;
     }
 
-    @Column(name = "sale_date")
+    @Column(name = "sale_date", nullable = false)
     public LocalDate getSaleDate() {
         return saleDate;
     }
@@ -72,7 +76,7 @@ public class Invoice {
         this.saleDate = saleDate;
     }
 
-    @Column(name = "payment_date")
+    @Column(name = "payment_date", nullable = false)
     public LocalDate getPaymentDate() {
         return paymentDate;
     }
@@ -81,7 +85,7 @@ public class Invoice {
         this.paymentDate = paymentDate;
     }
 
-    @Column(name = "net_value")
+    @Column(name = "net_value", nullable = false)
     public Double getNetAmount() {
         return netAmount;
     }
@@ -90,7 +94,7 @@ public class Invoice {
         this.netAmount = netAmount;
     }
 
-    @Column(name = "gross_value")
+    @Column(name = "gross_value", nullable = false)
     public Double getGrossAmount() {
         return grossAmount;
     }
@@ -99,7 +103,7 @@ public class Invoice {
         this.grossAmount = grossAmount;
     }
 
-    @Column(name = "vat_value")
+    @Column(name = "vat_value", nullable = false)
     public Double getVatAmount() {
         return vatAmount;
     }
@@ -109,7 +113,7 @@ public class Invoice {
     }
 
     @ManyToOne
-    @JoinColumn(name = "payment_type_id", referencedColumnName = "id")
+    @JoinColumn(name = "payment_type_id", referencedColumnName = "id", nullable = false)
     public PaymentType getPaymentType() {
         return paymentType;
     }
@@ -119,7 +123,7 @@ public class Invoice {
     }
 
     @ManyToOne
-    @JoinColumn(name = "invoice_type_id", referencedColumnName = "id")
+    @JoinColumn(name = "invoice_type_id", referencedColumnName = "id", nullable = false)
     public InvoiceType getInvoiceVersion() {
         return invoiceVersion;
     }
@@ -129,7 +133,7 @@ public class Invoice {
     }
 
     @ManyToOne
-    @JoinColumn(name = "client_id", referencedColumnName = "id")
+    @JoinColumn(name = "client_id", referencedColumnName = "id", nullable = false)
     public Client getClient() {
         return client;
     }
@@ -162,6 +166,7 @@ public class Invoice {
         this.invoiceVats = invoiceVats;
     }
 
+    @Column(name = "active", nullable = false)
     public Boolean getActive() {
         return active;
     }

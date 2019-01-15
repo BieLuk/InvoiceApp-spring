@@ -33,6 +33,7 @@ public class InvoiceVat {
         this.vatType = vatType;
     }
 
+    @Column(name = "net_value", nullable = false)
     public Double getNetValue() {
         return netValue;
     }
@@ -41,6 +42,7 @@ public class InvoiceVat {
         this.netValue = netValue;
     }
 
+    @Column(name = "vat_value", nullable = false)
     public Double getVatValue() {
         return vatValue;
     }
@@ -49,6 +51,7 @@ public class InvoiceVat {
         this.vatValue = vatValue;
     }
 
+    @Column(name = "gross_value", nullable = false)
     public Double getGrossValue() {
         return grossValue;
     }
@@ -58,7 +61,7 @@ public class InvoiceVat {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="invoice_id", referencedColumnName = "id")
+    @JoinColumn(name="invoice_id", referencedColumnName = "id", nullable = false)
     public Invoice getInvoice() {
         return invoice;
     }

@@ -33,6 +33,7 @@ public class Client {
         this.id = id;
     }
 
+    @Column(name = "name", nullable = false)
     public String getName() {
         return name;
     }
@@ -41,6 +42,7 @@ public class Client {
         this.name = name;
     }
 
+    @Column(name = "street", nullable = false)
     public String getStreet() {
         return street;
     }
@@ -49,6 +51,7 @@ public class Client {
         this.street = street;
     }
 
+    @Column(name = "postcode", nullable = false)
     public String getPostcode() {
         return postcode;
     }
@@ -57,6 +60,7 @@ public class Client {
         this.postcode = postcode;
     }
 
+    @Column(name = "city", nullable = false)
     public String getCity() {
         return city;
     }
@@ -65,6 +69,7 @@ public class Client {
         this.city = city;
     }
 
+    @Column(name = "nip", nullable = false)
     public String getNip() {
         return nip;
     }
@@ -106,7 +111,7 @@ public class Client {
     }
 
     @ManyToOne
-    @JoinColumn(name="user_id", referencedColumnName = "id")
+    @JoinColumn(name="user_id", referencedColumnName = "id", nullable = false)
     public User getUser() {
         return user;
     }
@@ -115,6 +120,7 @@ public class Client {
         this.user = user;
     }
 
+    @Column(name = "active", nullable = false)
     public Boolean getActive() {
         return active;
     }

@@ -20,6 +20,7 @@ public class VatType {
         this.id = id;
     }
 
+    @Column(name = "name", nullable = false)
     public String getName() {
         return name;
     }
@@ -28,6 +29,7 @@ public class VatType {
         this.name = name;
     }
 
+    @Column(name = "value", nullable = false)
     public Double getValue() {
         return value;
     }

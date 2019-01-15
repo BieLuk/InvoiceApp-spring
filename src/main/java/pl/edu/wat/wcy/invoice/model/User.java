@@ -60,8 +60,7 @@ public class User {
         this.id = id;
     }
 
-    @NotBlank
-    @Size(max = 40)
+    @Column(name = "name", nullable = false)
     public String getName() {
         return name;
     }
@@ -70,8 +69,7 @@ public class User {
         this.name = name;
     }
 
-    @NotBlank
-    @Size(max = 15)
+    @Column(name = "username", nullable = false, unique = true)
     public String getUsername() {
         return username;
     }
@@ -80,10 +78,7 @@ public class User {
         this.username = username;
     }
 
-    @NaturalId
-    @NotBlank
-    @Size(max = 40)
-    @Email
+    @Column(name = "email", nullable = false, unique = true)
     public String getEmail() {
         return email;
     }
@@ -92,8 +87,7 @@ public class User {
         this.email = email;
     }
 
-    @NotBlank
-    @Size(max = 100)
+    @Column(name = "password", nullable = false)
     public String getPassword() {
         return password;
     }
@@ -102,6 +96,7 @@ public class User {
         this.password = password;
     }
 
+    @Column(name = "phone")
     public String getPhone() {
         return phone;
     }
@@ -110,6 +105,7 @@ public class User {
         this.phone = phone;
     }
 
+    @Column(name = "street")
     public String getStreet() {
         return street;
     }
@@ -118,6 +114,7 @@ public class User {
         this.street = street;
     }
 
+    @Column(name = "postcode")
     public String getPostcode() {
         return postcode;
     }
@@ -126,6 +123,7 @@ public class User {
         this.postcode = postcode;
     }
 
+    @Column(name = "city")
     public String getCity() {
         return city;
     }
@@ -134,7 +132,7 @@ public class User {
         this.city = city;
     }
 
-    @Column(unique = true)
+    @Column(name = "nip", unique = true)
     public String getNip() {
         return nip;
     }
@@ -143,6 +141,7 @@ public class User {
         this.nip = nip;
     }
 
+    @Column(name = "regon", unique = true)
     public String getRegon() {
         return regon;
     }
@@ -151,6 +150,7 @@ public class User {
         this.regon = regon;
     }
 
+    @Column(name = "active", nullable = false)
     public Boolean getActive() {
         return active;
     }

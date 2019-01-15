@@ -20,7 +20,7 @@ public class InvoicePosition {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     public Long getId() {
         return id;
     }
@@ -30,7 +30,7 @@ public class InvoicePosition {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="invoice_id", referencedColumnName = "id")
+    @JoinColumn(name="invoice_id", referencedColumnName = "id", nullable = false)
     public Invoice getInvoice() {
         return invoice;
     }
@@ -39,7 +39,7 @@ public class InvoicePosition {
         this.invoice = invoice;
     }
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     public String getName() {
         return name;
     }
@@ -57,7 +57,7 @@ public class InvoicePosition {
         this.unit = unit;
     }
 
-    @Column(name = "quantity")
+    @Column(name = "quantity", nullable = false)
     public Double getQuantity() {
         return quantity;
     }
@@ -66,7 +66,7 @@ public class InvoicePosition {
         this.quantity = quantity;
     }
 
-    @Column(name = "net_price")
+    @Column(name = "net_price", nullable = false)
     public Double getNetPrice() {
         return netPrice;
     }
@@ -75,7 +75,7 @@ public class InvoicePosition {
         this.netPrice = netPrice;
     }
 
-    @Column(name = "net_value")
+    @Column(name = "net_value", nullable = false)
     public Double getNetValue() {
         return netValue;
     }
@@ -84,7 +84,7 @@ public class InvoicePosition {
         this.netValue = netValue;
     }
 
-    @Column(name = "gross_value")
+    @Column(name = "gross_value", nullable = false)
     public Double getGrossValue() {
         return grossValue;
     }
@@ -94,7 +94,7 @@ public class InvoicePosition {
     }
 
     @ManyToOne
-    @JoinColumn(name = "vat_type", referencedColumnName = "id")
+    @JoinColumn(name = "vat_type", referencedColumnName = "id", nullable = false)
     public VatType getVatType() {
         return vatType;
     }
@@ -103,7 +103,7 @@ public class InvoicePosition {
         this.vatType = vatType;
     }
 
-    @Column(name = "vat_value")
+    @Column(name = "vat_value", nullable = false)
     public Double getVatValue() {
         return vatValue;
     }
