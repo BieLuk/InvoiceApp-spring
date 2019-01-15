@@ -55,6 +55,11 @@ public class InvoiceController {
         return new ListResponse<>(invoiceService.getFirstInvoices5ByUserId(userId));
     }
 
+    @PutMapping(value = "/edit")
+    public SingleResponse<InvoiceDTO> updateClient(@RequestBody InvoiceDTO invoice) {
+        return new SingleResponse<>(invoiceService.updateClient(invoice));
+    }
+
     @DeleteMapping(value = "/delete")
     public SingleResponse<Boolean> deleteInvoice(@PathParam("invoiceId") Long invoiceId) {
         return new SingleResponse<>(invoiceService.deleteInvoice(invoiceId));

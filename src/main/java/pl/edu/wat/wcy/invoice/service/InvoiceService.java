@@ -68,6 +68,15 @@ public class InvoiceService {
         return new ObjectReference(invoice.getId());
     }
 
+    public InvoiceDTO updateClient(InvoiceDTO invoice) {
+        Invoice invoiceDs = invoiceRepository.findById(invoice.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Invoice not found id: " + invoice.getId()));
+        modelMapper.map(invoice, invoiceDs);
+
+        invoiceRepository.save(invoiceDs);
+        return invoice;
+    }
+
     public boolean deleteInvoice(Long invoiceId) {
         Invoice invoice = invoiceRepository.findById(invoiceId)
                 .orElseThrow(() -> new ResourceNotFoundException("Invoice not exist id = " + invoiceId));
