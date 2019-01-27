@@ -2,8 +2,6 @@ package pl.edu.wat.wcy.invoice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -11,8 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import pl.edu.wat.wcy.invoice.Config.Security.JwtTokenProvider;
+import pl.edu.wat.wcy.invoice.config.security.JwtTokenProvider;
 import pl.edu.wat.wcy.invoice.dto.UserSimpleDTO;
 import pl.edu.wat.wcy.invoice.exception.AppException;
 import pl.edu.wat.wcy.invoice.model.Role;
@@ -26,7 +23,6 @@ import pl.edu.wat.wcy.invoice.repository.RoleRepository;
 import pl.edu.wat.wcy.invoice.repository.UserRepository;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.Collections;
 
 @Service
@@ -60,11 +56,11 @@ public class AuthService {
 
     public ApiResponse registerUser(@Valid UserSignUpDTO userSignUpDTO) {
         if(userRepository.existsByUsername(userSignUpDTO.getUsername())) {
-            return new ApiResponse(false, "Podana nazwa użytkownika jest zajęta");
+            return new ApiResponse(false, "Username is already taken.");
         }
 
         if(userRepository.existsByEmail(userSignUpDTO.getEmail())) {
-            return new ApiResponse(false, "Podany adres email jest zajęty");
+            return new ApiResponse(false, "Email is already taken.");
         }
 
         User user = new User(userSignUpDTO.getName(), userSignUpDTO.getUsername(),

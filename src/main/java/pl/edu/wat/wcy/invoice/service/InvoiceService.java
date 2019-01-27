@@ -10,10 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.edu.wat.wcy.invoice.dto.InvoiceDTO;
-import pl.edu.wat.wcy.invoice.model.Client;
-import pl.edu.wat.wcy.invoice.model.Invoice;
-import pl.edu.wat.wcy.invoice.model.InvoicePosition;
-import pl.edu.wat.wcy.invoice.model.InvoiceVat;
+import pl.edu.wat.wcy.invoice.model.*;
 import pl.edu.wat.wcy.invoice.repository.InvoiceRepository;
 import pl.edu.wat.wcy.invoice.response.ObjectReference;
 import pl.edu.wat.wcy.invoice.utils.PdfGenerator;
@@ -68,10 +65,11 @@ public class InvoiceService {
         return new ObjectReference(invoice.getId());
     }
 
-    public InvoiceDTO updateClient(InvoiceDTO invoice) {
-        Invoice invoiceDs = invoiceRepository.findById(invoice.getId())
+    public InvoiceDTO updateInvoice(InvoiceDTO invoice) {
+        Invoice invoiceDs = invoiceRepository.findByIdAndActive(invoice.getId(), true)
                 .orElseThrow(() -> new ResourceNotFoundException("Invoice not found id: " + invoice.getId()));
         modelMapper.map(invoice, invoiceDs);
+        invoiceDs.setActive(true);
 
         invoiceRepository.save(invoiceDs);
         return invoice;
@@ -85,21 +83,14 @@ public class InvoiceService {
         return true;
     }
 
-    public ResponseEntity<InputStreamSource> generateInvoicePdf(Long invoiceId) throws IOException {
+    public InputStreamSource generateInvoicePdf(Long invoiceId) {
         Invoice invoice = invoiceRepository.findById(invoiceId)
                 .orElseThrow(() -> new ResourceNotFoundException("Invoice not exist id = " + invoiceId));
-        String filename = invoice.getInvoiceNumber() + "-" + invoice.getClient().getName() + ".pdf";
 
         PdfGenerator pdfGenerator = new PdfGenerator();
         ByteArrayInputStream bis = pdfGenerator.generate(invoice);
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline; filename=" + filename);
 
-        return ResponseEntity
-                .ok()
-                .headers(headers)
-                .contentType(MediaType.APPLICATION_PDF)
-                .body(new InputStreamResource(bis));
+        return new InputStreamResource(bis);
     }
 
 

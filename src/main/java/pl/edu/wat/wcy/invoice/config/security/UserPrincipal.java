@@ -1,4 +1,4 @@
-package pl.edu.wat.wcy.invoice.Config.Security;
+package pl.edu.wat.wcy.invoice.config.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;

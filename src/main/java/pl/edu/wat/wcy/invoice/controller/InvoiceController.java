@@ -56,8 +56,8 @@ public class InvoiceController {
     }
 
     @PutMapping(value = "/edit")
-    public SingleResponse<InvoiceDTO> updateClient(@RequestBody InvoiceDTO invoice) {
-        return new SingleResponse<>(invoiceService.updateClient(invoice));
+    public SingleResponse<InvoiceDTO> updateInvoice(@RequestBody InvoiceDTO invoice) {
+        return new SingleResponse<>(invoiceService.updateInvoice(invoice));
     }
 
     @DeleteMapping(value = "/delete")
@@ -66,9 +66,11 @@ public class InvoiceController {
     }
 
     @GetMapping(value = "/pdf",  produces = MediaType.APPLICATION_PDF_VALUE)
-    public ResponseEntity<InputStreamSource> generateInvoicePdf(@PathParam("invoiceId") Long invoiceId) throws IOException {
-        return invoiceService.generateInvoicePdf(invoiceId);
+    public ResponseEntity<InputStreamSource> generateInvoicePdf(@PathParam("invoiceId") Long invoiceId) {
+        return ResponseEntity
+                .ok()
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(invoiceService.generateInvoicePdf(invoiceId));
     }
-
 
 }

@@ -1,4 +1,4 @@
-package pl.edu.wat.wcy.invoice.Config.Security;
+package pl.edu.wat.wcy.invoice.config.security;
 
 
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 @Configuration
 @EnableWebSecurity

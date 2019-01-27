@@ -1,4 +1,4 @@
-package pl.edu.wat.wcy.invoice.Config.Security;
+package pl.edu.wat.wcy.invoice.config.security;
 
 
 import io.jsonwebtoken.*;
